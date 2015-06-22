@@ -54,7 +54,7 @@ foreach my $key ( keys %clusterfile )
 {
     my $info = $clusterfile{$key};
     my $full_server_name = "$info->{'machine'}.cashnetusa.com";
-    $full_server_name =~ s/\.oak\.cashnetusa\.com$/.mgmt.oak.enova.com/;    #hack around not having domain name in the json file
+    $full_server_name =~ s/\.oak\.zzzzzzzzzz\.com$/.mgmt.oak.zzzzz.com/;    #hack around not having domain name in the json file
     
     if ( 
         (($in_active_only and $$info{active} eq "yes") or (! $in_active_only))

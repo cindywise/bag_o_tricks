@@ -24,12 +24,12 @@ release_patch="release_${yyyymmdd:0:4}-${yyyymmdd:4:2}-${yyyymmdd:6:2}";
 IFS='
 ';
 echo "Copy and paste these into the wiki, then edit and fill extra details as needed:";
-echo "= [https://git.enova.com/cnuapp/cnuapp/tree/r$yyyymmdd/cnuapp/db/patches/$release_patch.sql $release_patch] =
+echo "= [https://git.......com/cnuapp/cnuapp/tree/r$yyyymmdd/cnuapp/db/patches/$release_patch.sql $release_patch] =
 ";
 
 for individual_patch in `grep -i '\-\- patchdeps: ' $path/$release_patch.sql | sed -e 's/\-\- patchdeps: //' -e 's/ /\\n/g'` 
 do
-   echo "== [https://git.enova.com/cnuapp/cnuapp/tree/r$yyyymmdd/cnuapp/db/patches/$individual_patch.sql $individual_patch] =="; 
+   echo "== [https://git.......com/cnuapp/cnuapp/tree/r$yyyymmdd/cnuapp/db/patches/$individual_patch.sql $individual_patch] =="; 
   for statement in `grep -iE "create |insert into |alter |add column |drop " $path/$individual_patch.sql | cut -d'(' -f1`
   do
     echo "* $statement";
