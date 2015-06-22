@@ -1,0 +1,113 @@
+MOST IMPORTANTLY: 
+** Please read and understand each script before executing it!  
+** Most scripts can be dangerous if used incorrectly.
+
+ASSUMPTIONS:
+** The new release scripts all execute based on the following assumptions ...
+	1) The server where the scripts run is where the cluster file exists (see cnuapp_list.pl script).
+	2) The user executing the scripts have ssh access to the production database servers.
+	3) The user executing the scripts has their ssh keys on every server. 
+	4) The directory from which the scripts are executing is in the users PATH variable.
+
+
+WIKI: 
+** The existing DBDev release process wiki is here https://wiki.enova.com/display/DATASVC/DBDev+Release+Process.
+** There are new actual PROCESSES being created here: https://wiki.enova.com/display/DATASVC/DB+Dev++Processes  and once finished, will obselete the initial wiki release page.
+
+
+
+SCRIPT LIST / USAGE:
+** Each script has documentation in it, as well. 
+
+** cnuapp_list.pl
+	This script was written to run anywhere CFEngine maintains a copy of the current host list: /etc/enki/clusterinfo.json
+	It returns each database server name, cnuapp cluster and database name (by calling clusterinfo_parse.pl)
+	Output is used by several other release scripts.
+	How to execute from command-line:
+		perl cnuapp_list.pl --pnl=uk        # will return all UK clusters
+		perl cnuapp_list.pl --servers_only  # will return all server names with cnuapp clusters
+		perl cnuapp_list.pl --servers_only --role=snapshot  # will return all server names with cnuapp clusters and marked as role 'snapshot'
+
+** test_access.sh
+	Use this script to make sure your passwordless access to each db server is working and the server is up.
+
+** patch_inquiry.sh
+	Utilitze this script while verifying patchdeps during the building of the release patch or after release for verification of application. 
+	A patchdep of a releasing patch candidate must be either already applied or have been reviewed/approved.
+	It takes the patch name and queries for the patch name in the tools.schema_patches of production clusters.
+	Supplying a P&L code is an optional 2nd parameter.  The default is to query all standard cnuapp clusters.
+	How to execute from command-line:
+		patch_inquiry.sh bug_123456_ima_test jv
+	It displays the cluster name, then outputs the applied_at value.
+
+** send_untar.sh
+	This script pushes the tar file to the database servers.
+	Pass in the tarfile name to this script and it will scp/untar the tgz file to each server that is running a production cnuapp database cluster.
+	Optionally pass a 2nd parameter 'snapshot' to only push to snapshot servers.  Or pass in a P&L code to only push to database servers where that P&L's clusters are running.
+	The script loops thru the desired servers and does the following via ssh to each server:
+		Create the 'local' directory on the db server if it doesn't exist for YOUR user,
+		Remove any previous copies of the release directory,
+		Scp's the tar file from ~/local directory to the server "local" directory,
+		Creates the tarfile directory as the release directory, cd's to it, 
+		Untar's the tar file in the release directory,
+		Cd's to the patches directory,
+		Shows the end of the manifest.txt file for possible visual verification of inclusion of release patch,
+		Runs pg_lsclusters to show all clusters running, just as an FYI.
+	How to execute from command-line:
+		./send_untar.sh r20121101
+	It displays the server name, then outputs the results of all the commands described above.
+	Example of how to run for just snapshot servers:
+		./send_untar.sh r20130101 snapshot
+	Example of how to run for just JV servers:
+		./send_untar.sh r20130101 jv
+	Example of how to run for offcycle release patch:
+		./send_untar.sh bug_123456_i_cannot_wait
+
+** londiste_provider_status.sh
+	This gives you the provider londiste status output concerning subscribers' statuses.
+	It will find the associated cnuapp provider cluster/server from the cnuapp_list.pl script.
+	Then it will run the pgq status command and return the portion containing the statuses of the associated subscribers.
+	It is a good way to cross check that you are releasing to all the 'known' subscribers.
+	Pass in the 'P&L' (us, jv, uk, ca, au) to this script to show Londiste Provider status.
+	Pass in a period '.' to get all the standard cnuapp providers (this now excludes AU due to fork).
+
+** pnl_patch_cmds.sh
+	This script generates the ssh commands to patch each cluster in a given P & L.
+	It does not actually perform the patching!
+	The script accepts a release date for the patch directory or offcycle release patch name, and accepts the P&L code to read from the cluster list.
+  The scripts accepts an optional 3rd parameter for 'standard' or 'offcycle'. No value will assum 'standard'.
+	For each cluster associated to that P&L, ssh statements are generated to be able to execute the release patch remotely.
+	*** Important Note: When manually running the ssh command string, if a patch is blocked, canceling (with control c) may not abort the sql command in the target database. You may have to open a psql session to that database to actually kill the process.
+	How to execute from command-line for standard release:
+		./pnl_patch_cmds.sh r20131010 uk
+	How to execute from command-line for offcycle release:
+		./pnl_patch_cmds.sh bug_123456_i_cannot_wait uk offcycle
+	It outputs the commands to use (copy/paste) when ready to actually patch each cluster individually as directed by release pilot.
+
+** provider_add.sh
+	This script executes Londiste Provider steps on a provider for a given P & L.
+	It finds the associated cnuapp provider clusters/servers from the cluster_list.pl script.
+	How to execute from command-line:
+		./provider_add.sh jv
+	It outputs the tables and sequences that needs to be added. 
+	It asks for user input to proceed (y/n) y: to conitnue adding the sequences/tables, n to exit.
+	The output is generated on the console.
+
+** subscriber_add.sh
+	This script executes Londiste Subscriber commands on all cnuapp production subscriber clusters for the given P & L.
+	It finds the associated cnuapp subscriber clusters/servers from the cnuapp_list.pl script.
+	How to execute from command-line:
+		./subscriber_add.sh uk
+  It outputs the cluster name and missing objects, then asks whether to subscribe or not.
+ 
+** cleanup_remote_dirs.sh
+	This script removes any release "r"-prefixed directories and files in the user's local directory from each database server.
+
+
+TODO:
+
+** Please feel free to enhance the scripts using regexp and better parameter checking.
+
+
+
+--END.
