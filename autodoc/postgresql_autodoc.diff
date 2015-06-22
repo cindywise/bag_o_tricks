@@ -1,0 +1,73 @@
+1c1
+< #!/usr/bin/env perl
+---
+> #!/usr/bin/perl
+67,68c67,68
+<     # @@TEMPLATE-DIR@@ will be replaced by make in the build phase
+<     my $template_path = '@@TEMPLATE-DIR@@';
+---
+>     # /usr/local/share/postgresql_autodoc will be replaced by make in the build phase
+>     my $template_path = '/usr/local/share/postgresql_autodoc';
+290c290
+<       'pg_catalog|pg_toast|pg_temp_[0-9]+|information_schema';
+---
+>       'pg_catalog|pg_toast|pg_temp_[0-9]+|information_schema|pgq|pgq_event';
+322c322
+<             , relacl
+---
+>             , array_to_string(relacl,',') as relacl
+614c614,615
+<                     $struct->{$schema}{'TABLE'}{$relname}{'ACL'}{$user}
+---
+>                     #$struct->{$schema}{'TABLE'}{$relname}{'ACL'}{$user}
+>                     $struct->{$schema}{'TABLE'}{$relname}{'permissions'}{$user}
+619c620,621
+<                     $struct->{$schema}{'TABLE'}{$relname}{'ACL'}{$user}
+---
+>                     #$struct->{$schema}{'TABLE'}{$relname}{'ACL'}{$user}
+>                     $struct->{$schema}{'TABLE'}{$relname}{'permissions'}{$user}
+624c626,627
+<                     $struct->{$schema}{'TABLE'}{$relname}{'ACL'}{$user}
+---
+>                     #$struct->{$schema}{'TABLE'}{$relname}{'ACL'}{$user}
+>                     $struct->{$schema}{'TABLE'}{$relname}{'permissions'}{$user}
+629c632,633
+<                     $struct->{$schema}{'TABLE'}{$relname}{'ACL'}{$user}
+---
+>                     #$struct->{$schema}{'TABLE'}{$relname}{'ACL'}{$user}
+>                     $struct->{$schema}{'TABLE'}{$relname}{'permissions'}{$user}
+633,637d636
+<                 if ( $permissions =~ /R/ ) {
+<                     $struct->{$schema}{'TABLE'}{$relname}{'ACL'}{$user}
+<                       {'RULE'} = 1;
+<                 }
+< 
+639c638,639
+<                     $struct->{$schema}{'TABLE'}{$relname}{'ACL'}{$user}
+---
+>                     #$struct->{$schema}{'TABLE'}{$relname}{'ACL'}{$user}
+>                     $struct->{$schema}{'TABLE'}{$relname}{'permissions'}{$user}
+644c644,645
+<                     $struct->{$schema}{'TABLE'}{$relname}{'ACL'}{$user}
+---
+>                     #$struct->{$schema}{'TABLE'}{$relname}{'ACL'}{$user}
+>                     $struct->{$schema}{'TABLE'}{$relname}{'permissions'}{$user}
+1294c1295,1296
+<                 sort keys %{ $struct->{$schema}{'TABLE'}{$table}{'ACL'} } )
+---
+>                 #sort keys %{ $struct->{$schema}{'TABLE'}{$table}{'ACL'} } )
+>                 sort keys %{ $struct->{$schema}{'TABLE'}{$table}{'permissions'} } )
+1315c1317,1318
+<                     keys %{ $struct->{$schema}{'TABLE'}{$table}{'ACL'}{$user} }
+---
+>                     #keys %{ $struct->{$schema}{'TABLE'}{$table}{'ACL'}{$user} }
+>                     keys %{ $struct->{$schema}{'TABLE'}{$table}{'permissions'}{$user} }
+1318c1321,1322
+<                     if ( $struct->{$schema}{'TABLE'}{$table}{'ACL'}{$user}
+---
+>                     #if ( $struct->{$schema}{'TABLE'}{$table}{'ACL'}{$user}
+>                     if ( $struct->{$schema}{'TABLE'}{$table}{'permissions'}{$user}
+1844c1848
+<   -l <path>       Path to the templates (default: @@TEMPLATE-DIR@@)
+---
+>   -l <path>       Path to the templates (default: /usr/local/share/postgresql_autodoc)

@@ -1,0 +1,10 @@
+The files in this directory pertain to postgresql_autodoc tool.
+http://www.rbt.ca/autodoc/
+
+It creates a document of the databases, schemas, permissions, etc.
+
+The files here are what I have changed to customize for Enova, as well as a few fixes.
+
+After you download, make and install it, then you can overwrite the html.tmpl with this one.
+The postgresql_autodoc is probaby not safe to overwrite, but you can see the diff to see what I changed to get things fixed and customized.
+

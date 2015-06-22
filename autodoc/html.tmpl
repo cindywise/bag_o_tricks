@@ -1,0 +1,414 @@
+<!-- $Header: /cvsroot/autodoc/autodoc/html.tmpl,v 1.4 2006/05/16 19:01:27 rbt Exp $ -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <title>Index for <!-- TMPL_VAR ESCAPE="HTML" name="database" --></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style type="text/css">
+	BODY {
+		color:	#000000;
+		background-color: #FFFFFE;
+		font-family: Helvetica, sans-serif;
+	}
+
+	P {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+
+	P.w3ref {
+		font-size: 8pt;
+		font-style: italic;
+		text-align: right;
+	}
+
+	P.idx {
+		font-size: 10pt;
+		text-align: right;
+	}
+
+	.error {
+		color: #FFFFFF;
+		background-color: #FF0000;
+	}
+
+	H1, H2, H3, H4, H5, H6 {
+	}
+
+	H2.initcap {
+		text-transform:capitalize;
+	}
+
+	OL {
+		list-style-type: upper-alpha;
+	}
+
+	UL.topic {
+		list-style-type: upper-alpha;
+	}
+
+	LI.topic {
+		font-weight : bold;
+	}
+
+	HR {
+		color: #00FF00;
+		background-color: #808080;
+	}
+
+	TABLE {
+		border-width: medium;
+		padding: 3px;
+		background-color: black;
+		width: 90%;
+	}
+
+	TABLE.blue {
+		background-color: darkblue;
+	}
+
+	TABLE.green {
+		padding: 2px;
+		background-color: darkgreen;
+		width: 50%
+	}
+
+	TABLE.red {
+		border-width: light;
+		padding: 1px;
+		background-color: darkred;
+	}
+
+	CAPTION {
+		font-weight : bold;
+		font-size: 14pt;
+	}
+
+	TH {
+		color: #FFFFFF;
+		background-color: #000000;
+		text-align: left;
+	}
+
+	TH.blue {
+		background-color: darkblue;
+	}
+
+	TH.green {
+		background-color: darkgreen;
+	}
+
+	TH.red {
+		background-color: darkred;
+	}
+
+	TR {
+		color: #000000;
+		background-color: #000000;
+		vertical-align: top;
+	}
+
+	TR.tr0 {
+		background-color: #F0F0F0;
+	}
+
+	TR.tr1 {
+		background-color: #D8D8D8;
+	}
+
+	TD {
+		font-size: 12pt;
+	}
+
+	TD.col0 {
+		font-weight : bold;
+		width: 20%;
+	}
+
+	TD.col1 {
+		font-style: italic;
+		width: 15%;
+	}
+
+	TD.col2 {
+		font-size: 12px;
+	}
+    </style>
+    <link rel="stylesheet" type="text/css" media="all" href="all.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="screen.css">
+    <link rel="stylesheet" type="text/css" media="print" href="print.css">
+    <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+  </head>
+  <body>
+
+    <!-- Primary Index -->
+	<p><!-- TMPL_VAR ESCAPE="HTML" name="database_comment" --><br><br>Generated on <!-- TMPL_VAR ESCAPE="HTML" name="dumped_on" --></p>
+<h1><a name="index">Index of database - <!-- TMPL_VAR ESCAPE="HTML" name="database" --></a></h1>
+<!-- TMPL_IF name="schemas" -->
+<table width="80%" cellspacing="0" cellpadding="3">
+        <caption><!-- TMPL_IF name="number_of_schemas" -->Schemas <!-- /TMPL_IF name="number_of_schemas" --></caption>
+        <tr>
+        <th>Schema Name</th>
+        <th>Description</th>
+        <th>Owner</th>
+	</tr>
+	<!-- TMPL_LOOP name="schemas" -->
+            	<tr class="<!-- TMPL_IF name="__odd__" -->tr0<!-- TMPL_ELSE name="__odd__" -->tr1<!-- /TMPL_IF name="__odd__" -->">
+		<td><a href="#<!-- TMPL_VAR ESCAPE="URL" name="schema_sgmlid" -->"><!-- TMPL_VAR ESCAPE="HTML" name="schema" --></a>
+               	<td><!-- TMPL_VAR name="schema_comment" --></td>
+               	<td><!-- TMPL_VAR name="schema_owner" --></td>
+            	</tr>
+	<!-- /TMPL_LOOP name="schemas" -->
+</table>
+<!-- /TMPL_IF name="schemas" -->
+<hr>
+<hr>
+<ul>
+    <!-- TMPL_LOOP name="schemas" -->
+    <li><h2><a name="<!-- TMPL_VAR ESCAPE="HTML" name="schema_sgmlid" -->"><!-- TMPL_VAR ESCAPE="HTML" name="schema" --></a> schema</h2></li>
+	<!-- TMPL_IF name="tables" -->
+	<table width="100%" cellspacing="0" cellpadding="2" background-color="white">
+	<tr>
+	<th>Object</th>
+	<th>Type</th>
+	<th>Description</th>
+	<th>Owner</th>
+	<!-- TMPL_LOOP name="tables" -->
+            	<tr class="<!-- TMPL_IF name="__odd__" -->tr0<!-- TMPL_ELSE name="__odd__" -->tr1<!-- /TMPL_IF name="__odd__" -->">
+		<td><a href="#<!-- TMPL_VAR ESCAPE="URL" name="table_sgmlid" -->"><!-- TMPL_VAR ESCAPE="HTML" name="table" --></a> </td>
+		<td> <!-- TMPL_VAR ESCAPE="HTML" name="reltype" --> </td>
+		<td> 
+        	<!-- TMPL_IF name="table_comment" --> <!-- TMPL_VAR ESCAPE="HTML" name="table_comment" --></td> <!-- /TMPL_IF name="table_comment" -->
+		<td> 
+        	<!-- TMPL_IF name="table_owner" --> <!-- TMPL_VAR ESCAPE="HTML" name="table_owner" --></td> <!-- /TMPL_IF name="table_owner" -->
+	<!-- /TMPL_LOOP name="tables" -->
+	<!-- /TMPL_IF name="tables" -->
+	</table>	
+&nbsp;
+	<!-- TMPL_IF name="functions" -->
+	<table width="100%" cellspacing="0" cellpadding="2" background-color="white">
+	<th>Function</th>
+	<th>Description</th>
+	<th>Owner</th>
+	<!-- TMPL_LOOP name="functions" -->
+            	<tr class="<!-- TMPL_IF name="__odd__" -->tr0<!-- TMPL_ELSE name="__odd__" -->tr1<!-- /TMPL_IF name="__odd__" -->">
+		<td><a href="#<!-- TMPL_VAR ESCAPE="URL" name="function_sgmlid" -->"><!-- TMPL_VAR ESCAPE="HTML" name="function" --></a></td>
+		<td> <!-- TMPL_IF name="function_comment" --> <!-- TMPL_VAR ESCAPE="HTML" name="function_comment" --> <!-- /TMPL_IF name="function_comment" --> </td>
+		<td> <!-- TMPL_IF name="function_owner" --> <!-- TMPL_VAR ESCAPE="HTML" name="function_owner" --> <!-- /TMPL_IF name="function_owner" --> </td>
+	<!-- /TMPL_LOOP name="functions" -->
+	</table>
+	<!-- /TMPL_IF name="functions" -->
+    <!-- /TMPL_LOOP name="schemas" -->
+
+    <!-- Schema Creation -->
+    <!-- TMPL_LOOP name="schemas" --><!-- <!-- TMPL_VAR ESCAPE="HTML" name="schema" --><!-- TMPL_VAR ESCAPE="HTML" name="schema" --> -->
+
+		<!-- TMPL_IF name="number_of_schemas" -->
+		<hr>
+		<hr>
+		<h1>Schema <!-- TMPL_VAR ESCAPE="HTML" name="schema" --></h1>
+		<!-- TMPL_IF name="schema_comment" -->
+			<p><!-- TMPL_VAR name="schema_comment" --></p>
+		<!-- /TMPL_IF name="schema_comment" -->
+
+		<!-- /TMPL_IF name="number_of_schemas" -->
+		<!-- TMPL_LOOP name="tables" -->
+        <hr>
+		<h2><!-- TMPL_VAR ESCAPE="HTML" name="reltype" -->:
+			<!-- TMPL_IF name="number_of_schemas" --> <a href="#<!-- TMPL_VAR ESCAPE="URL" name="schema_sgmlid" -->"><!-- TMPL_VAR ESCAPE="HTML" name="schema" --></a>.<!-- /TMPL_IF name="number_of_schemas" --><a name="<!-- TMPL_VAR ESCAPE="URL" name="table_sgmlid" -->"><!-- TMPL_VAR ESCAPE="HTML" name="table" --></a>
+		</h2>
+        <!-- TMPL_IF name="table_comment" -->
+         <p><!-- TMPL_VAR ESCAPE="HTML" name="table_comment" --></p>
+        <!-- /TMPL_IF name="table_comment" -->
+
+        <table class="blue" width="100%" cellspacing="0" cellpadding="3">
+<!-- omit caption to save lines of output
+                <caption><!-- TMPL_IF name="number_of_schemas" -->Structure of <!-- TMPL_VAR ESCAPE="HTML" name="schema" -->.<!-- /TMPL_IF name="number_of_schemas" --><!-- TMPL_VAR ESCAPE="HTML" name="table" --></caption>
+-->
+                <tr>
+		<th class="blue"> <!-- TMPL_UNLESS name="view_definition" --> F-Key <!-- /TMPL_UNLESS name="view_definition" --> </th>
+                <th class="blue">Name</th>
+                <th class="blue">Type</th>
+                <th class="blue">Description</th>
+                </tr>
+            <!-- TMPL_LOOP name="columns" -->
+            <tr class="<!-- TMPL_IF name="__odd__" -->tr0<!-- tmpl_else name="__odd__" -->tr1<!-- /TMPL_IF name="__odd__" -->">
+		<!-- TMPL_UNLESS name="view_definition" --> <td>
+                <!-- TMPL_LOOP name="column_constraints" -->
+                  <!-- TMPL_IF name="column_fk" -->
+                  <a href="#<!-- TMPL_VAR ESCAPE="URL" name="column_fk_sgmlid" -->"><!-- TMPL_IF name="number_of_schemas" --><!-- TMPL_VAR ESCAPE="HTML" name="column_fk_schema" -->.<!-- /TMPL_IF name="number_of_schemas" --><!-- TMPL_VAR ESCAPE="HTML" name="column_fk_table" -->.<!-- TMPL_VAR ESCAPE="HTML" name="column_fk_colnum" --><!-- TMPL_IF name="column_fk_keygroup" -->#<!-- TMPL_VAR name="column_fk_keygroup" --><!-- /TMPL_IF name="column_fk_keygroup" --></a>
+                  <!-- /TMPL_IF name="column_fk" -->
+                <!-- /TMPL_LOOP name="column_constraints" -->
+                </td>
+		<!-- /TMPL_UNLESS name="view_definition" -->
+            	<td><!-- TMPL_VAR ESCAPE="HTML" name="column" --></td>
+            	<td><!-- TMPL_VAR ESCAPE="HTML" name="column_type" --></td>
+                <td><i>
+				<!-- TMPL_LOOP name="column_constraints" -->
+					<!-- TMPL_IF name="column_primary_key" -->PRIMARY KEY
+					<!-- /TMPL_IF name="column_primary_key" -->
+
+					<!-- TMPL_IF name="column_unique" -->
+                       UNIQUE<!-- TMPL_IF name="column_unique_keygroup" -->#<!-- TMPL_VAR name="column_unique_keygroup" --><!-- /TMPL_IF name="column_unique_keygroup" -->
+                    <!-- /TMPL_IF name="column_unique" -->
+				<!-- /TMPL_LOOP name="column_constraints" -->
+
+				<!-- TMPL_IF name="column_constraint_notnull" -->NOT NULL<!-- /TMPL_IF name="column_constraint_notnull" -->
+				<!-- TMPL_IF name="column_default" -->DEFAULT <!-- TMPL_VAR ESCAPE="HTML" name="column_default" --><!-- /TMPL_IF name="column_default" -->
+				</i>
+				<!-- TMPL_IF name="column_comment" --><br><br><!-- TMPL_VAR ESCAPE="HTML" name="column_comment" --><!-- /TMPL_IF name="column_comment" -->
+				</td>
+			 </tr>
+            <!-- /TMPL_LOOP name="columns" -->
+        </table>
+
+        <!-- Inherits -->
+		<!-- TMPL_IF name="inherits" -->
+        <p>Table <!-- TMPL_IF name="number_of_schemas" --><!-- TMPL_VAR ESCAPE="HTML" name="schema" -->.<!-- /TMPL_IF name="number_of_schemas" --><!-- TMPL_VAR ESCAPE="HTML" name="table" --> Inherits
+        <!-- TMPL_LOOP name="inherits" -->
+           <!-- TMPL_VAR name="index_name" --> <!-- TMPL_VAR name="index_definition" -->
+           <a href="#<!-- TMPL_VAR ESCAPE="URL" name="parent_sgmlid" -->"><!-- TMPL_IF name="number_of_schemas" --><!-- TMPL_VAR ESCAPE="HTML" name="parent_schema" -->.<!-- /TMPL_IF name="number_of_schemas" --><!-- TMPL_VAR ESCAPE="HTML" name="parent_table" --></a>, 
+        <!-- /TMPL_LOOP name="inherits" -->
+        </p>
+		<!-- /TMPL_IF name="inherits" -->
+
+		<!-- TMPL_UNLESS name="view_definition" -->
+		<!-- TMPL_IF name="stats_enabled" -->
+        <p>&nbsp;</p>
+        <table width="100%" cellspacing="0" cellpadding="3">
+         <caption>Statistics</caption>
+         <tr>
+          <th>Total Space (disk usage)</th>
+          <th>Tuple Count</th>
+          <th>Active Space</th>
+          <th>Dead Space</th>
+          <th>Free Space</th>
+         </tr>
+         <tr class="tr0">
+          <td><!-- TMPL_VAR ESCAPE="HTML" name="stats_table_bytes" --></td>
+          <td><!-- TMPL_VAR ESCAPE="HTML" name="stats_tuple_count" --></td>
+          <td><!-- TMPL_VAR ESCAPE="HTML" name="stats_tuple_bytes" --></td>
+          <td><!-- TMPL_VAR ESCAPE="HTML" name="stats_dead_bytes" --></td>
+          <td><!-- TMPL_VAR ESCAPE="HTML" name="stats_free_bytes" --></td>
+         </tr>
+        </table>
+		<!-- /TMPL_IF name="stats_enabled" -->
+		<!-- /TMPL_UNLESS name="view_definition" -->
+
+        <!-- Constraint List -->
+		<!-- TMPL_IF name="constraints" -->
+        <p>&nbsp;</p>
+		<table class="red" width="100%" cellspacing="0" cellpadding="3">
+<!--            <caption><!-- TMPL_IF name="number_of_schemas" -->Constraints for <!-- TMPL_VAR ESCAPE="HTML" name="schema" -->.<!-- /TMPL_IF name="number_of_schemas" --><!-- TMPL_VAR ESCAPE="HTML" name="table" --></caption>
+-->
+            <tr>
+            	<th class="red">Constraint Name</th>
+            	<th class="red">Definition</th>
+            </tr>
+			<!-- TMPL_LOOP name="constraints" -->
+            <tr class="<!-- TMPL_IF name="__odd__" -->tr0<!-- TMPL_ELSE name="__odd__" -->tr1<!-- /TMPL_IF name="__odd__" -->">
+				<td><!-- TMPL_VAR ESCAPE="HTML" name="constraint_name" --></td>
+                <td><!-- TMPL_VAR ESCAPE="HTML" name="constraint" --></td>
+            </tr>
+			<!-- /TMPL_LOOP name="constraints" -->
+		</table>
+		<!-- /TMPL_IF name="constraints" -->
+
+        <!-- Foreign Key Discovery -->
+		<!-- TMPL_IF name="fk_schemas" -->
+			<h4>Tables referencing this one via Foreign Key Constraints:</h4>
+		<!-- TMPL_LOOP name="fk_schemas" -->
+			<ul>
+				<li><a href="#<!-- TMPL_VAR ESCAPE="URL" name="fk_sgmlid" -->"><!-- TMPL_IF name="number_of_schemas" --><!-- TMPL_VAR ESCAPE="HTML" name="fk_schema" -->.<!-- /TMPL_IF name="number_of_schemas" --><!-- TMPL_VAR ESCAPE="HTML" name="fk_table" --></a></li>
+			</ul>
+		<!-- /TMPL_LOOP name="fk_schemas" -->
+		<!-- /TMPL_IF name="fk_schemas" -->
+
+    <!-- Indexes -->
+    <p>&nbsp;</p>
+    <!-- TMPL_IF name="indexes" --><h4>Index(es):</h4>
+    <!-- TMPL_LOOP name="indexes" -->
+	<ul>
+        <li><!-- TMPL_VAR name="index_name" --> (<!-- TMPL_VAR name="index_definition" -->)</li>
+	</ul>
+    <!-- /TMPL_LOOP name="indexes" -->
+    <!-- /TMPL_IF name="indexes" -->
+
+	<!-- View Definition -->
+	<!-- TMPL_IF name="view_definition" -->
+	<pre><!-- TMPL_VAR ESCAPE="HTML" name="view_definition" --></pre>
+	<!-- /TMPL_IF name="view_definition" -->
+
+	<!-- List off permissions -->
+	<!-- TMPL_IF name="permissions" -->
+ 	<p>&nbsp;</p>
+	<table class="green" width="100%" cellspacing="0" cellpadding="3">
+<!-- omit caption to save lines of output
+    	<caption>Permissions for <!-- TMPL_IF name="number_of_schemas" --><!-- TMPL_VAR ESCAPE="HTML" name="schema" -->.<!-- /TMPL_IF name="number_of_schemas" --><!-- TMPL_VAR ESCAPE="HTML" name="table" --></caption>
+-->
+    	<tr>
+    		<th class="green">Role Permissions</th>
+    		<th class="green"><center>Select</center></th>
+    		<th class="green"><center>Insert</center></th>
+    		<th class="green"><center>Update</center></th>
+    		<th class="green"><center>Delete</center></th>
+    	</tr>
+		<!-- TMPL_LOOP name="permissions" -->
+		<tr class="<!-- TMPL_IF name="__odd__" -->tr0<!-- tmpl_else name="__odd__" -->tr1<!-- /TMPL_IF name="__odd__" -->">
+			<td><!-- TMPL_VAR ESCAPE="HTML" name="user" --></td>
+			<td><!-- TMPL_IF name="select" --><center>&check;</center><!-- /TMPL_IF name="select" --></td>
+			<td><!-- TMPL_IF name="insert" --><center>&check;</center><!-- /TMPL_IF name="insert" --></td>
+			<td><!-- TMPL_IF name="update" --><center>&check;</center><!-- /TMPL_IF name="update" --></td>
+			<td><!-- TMPL_IF name="delete" --><center>&check;</center><!-- /TMPL_IF name="delete" --></td>
+		</tr>
+		<!-- /TMPL_LOOP name="permissions" -->
+	</table>
+	<!-- /TMPL_IF name="permissions" -->
+
+	<p class="idx">
+		<a href="#index">Index (top)</a> |
+		<a href="#<!-- TMPL_VAR ESCAPE="URL" name="schema_sgmlid" -->">Schema <!-- TMPL_VAR ESCAPE="HTML" name="schema" --></a>
+    </p>
+	<!-- /TMPL_LOOP name="tables" -->
+
+	<!-- We've gone through the table structure, now lets take a look at user functions -->
+	<!-- TMPL_LOOP name="functions" -->
+		<hr>
+		<h2>Function:
+			<a href="#<!-- TMPL_VAR ESCAPE="HTML" name="schema_sgmlid" -->"><!-- TMPL_IF name="number_of_schemas" --><!-- TMPL_VAR ESCAPE="HTML" name="schema" --></a>.<!-- /TMPL_IF name="number_of_schemas" --><a name="<!-- TMPL_VAR ESCAPE="URL" name="function_sgmlid" -->"><!-- TMPL_VAR ESCAPE="HTML" name="function" --></a>
+		</h2>
+<h3>Returns: <!-- TMPL_VAR ESCAPE="HTML" name="function_returns" --></h3>
+<h3>Language: <!-- TMPL_VAR ESCAPE="HTML" name="function_language" --></h3>
+        <!-- TMPL_IF name="function_comment" --><p><!-- TMPL_VAR ESCAPE="HTML" name="function_comment" --></p><!-- /TMPL_IF name="function_comment" -->
+        <pre><!-- TMPL_IF name="function_source" --><!-- TMPL_VAR ESCAPE="HTML" name="function_source" --><!-- /TMPL_IF name="function_source" --></pre>
+&nbsp;
+<!-- TMPL_IF name="function_secdef" --> <h3>Security Definer: <!-- TMPL_VAR ESCAPE="HTML" name="function_owner" --></h3> <!-- /TMPL_IF name="function_secdef" -->
+
+	<!-- List off permissions -->
+	<!-- TMPL_IF name="fc_permissions" -->
+	<table class="green" width="60%" cellspacing="0" cellpadding="3">
+    	<tr>
+    		<th class="green">Role Permissions</th>
+    		<th class="green"><center>Execute</center></th>
+    	</tr>
+		<!-- TMPL_LOOP name="fc_permissions" -->
+		<tr class="<!-- TMPL_IF name="__odd__" -->tr0<!-- tmpl_else name="__odd__" -->tr1<!-- /TMPL_IF name="__odd__" -->">
+			<td><!-- TMPL_VAR ESCAPE="HTML" name="user" --></td>
+			<td><!-- TMPL_IF name="execute" --><center>&check;</center><!-- /TMPL_IF name="execute" --></td>
+		</tr>
+		<!-- /TMPL_LOOP name="fc_permissions" -->
+	</table>
+	<!-- /TMPL_IF name="fc_permissions" -->
+
+	<p class="idx">
+		<a href="#index">Index (top)</a> |
+		<a href="#<!-- TMPL_VAR ESCAPE="URL" name="schema_sgmlid" -->">Schema <!-- TMPL_VAR ESCAPE="HTML" name="schema" --></a>
+   	</p>
+	<!-- /TMPL_LOOP name="functions" -->
+
+<!-- /TMPL_LOOP name="schemas" -->
+<p class="w3ref">Generated by <a href="http://www.rbt.ca/autodoc/">PostgreSQL Autodoc</a></p>
+<p class="w3ref"><a href="http://validator.w3.org/check/referer">W3C HTML 4.01 Strict</a></p>
+</body></html>
