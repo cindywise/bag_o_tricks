@@ -126,9 +126,9 @@ fi
 rm -f /tmp/diff_dump1_dump2.out$opt
 
 echo "Parsing of dump1 ($dump1) file ..." | tee /tmp/dump1_parse.out
-`cat $dump1 | ./parse_schema_dump.pl $opt >> /tmp/dump1_parse.out`
+cat $dump1 | ./parse_schema_dump.pl $opt >> /tmp/dump1_parse.out
 echo "Parsing of dump2 ($dump2) file ..." | tee /tmp/dump2_parse.out
-`cat $dump2 | ./parse_schema_dump.pl $opt >> /tmp/dump2_parse.out`
+cat $dump2 | ./parse_schema_dump.pl $opt >> /tmp/dump2_parse.out
 
 diff -uwibB /tmp/dump1_parse.out /tmp/dump2_parse.out > /tmp/diff_dump1_dump2.out$opt
 echo "Unified diff output is in /tmp/diff_dump1_dump2.out$opt";
